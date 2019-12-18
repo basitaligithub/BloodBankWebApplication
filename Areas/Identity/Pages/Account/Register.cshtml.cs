@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using BloodBankWebApplication.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,14 +20,14 @@ namespace BloodBankWebApplication.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<Donor> _signInManager;
+        private readonly UserManager<Donor> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<Donor> userManager,
+            SignInManager<Donor> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -46,6 +47,10 @@ namespace BloodBankWebApplication.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "Full Name")]
+            public string name { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -56,10 +61,41 @@ namespace BloodBankWebApplication.Areas.Identity.Pages.Account
             [Display(Name = "Password")]
             public string Password { get; set; }
 
+            [Required]
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            
+            [Required]
+            [Display(Name = "Age")]
+            public int age { get; set; }
+
+            [Required]
+            [Display(Name = "Gender")]
+            public string gender { get; set; }
+
+            [Required]
+            [Display(Name = "Blood Group")]
+            public string bloodGroup { get; set; }
+
+            [Required]
+            [Display(Name = "Street Address")]
+            public string streetAddress { get; set; }
+
+            [Required]
+            [Display(Name = "City")]
+            public string city { get; set; }
+
+            [Required]
+            [Display(Name = "Available")]
+            public string availability { get; set; }
+
+            [Display(Name = "Diseases")]
+            public string diseases { get; set; }
+
+            
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -74,7 +110,7 @@ namespace BloodBankWebApplication.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new Donor { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

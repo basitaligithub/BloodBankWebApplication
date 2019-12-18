@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BloodBankWebApplication.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext <Donor>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

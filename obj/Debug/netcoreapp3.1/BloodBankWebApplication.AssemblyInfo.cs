@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-BloodBankWebApplication-C0BEC8BE-2530-4D22-8EEB-C9DEBB667537")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("BloodBankWebApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
